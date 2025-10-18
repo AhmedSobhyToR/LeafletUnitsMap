@@ -1,19 +1,21 @@
+$black-color : #474747;
+
 .toggle-units-overlay {
     top: 5rem;
     left: 0.8rem;
     position: absolute;
     z-index: 999;
     padding: 0.5rem 1rem;
-    border: 1px solid #474747;
-    color: #474747;
+    border: 1px solid $black-color;
+    color: $black-color;
     border-radius: 0.3rem;
     cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    min-width: 100px;
+    transition: all 0.2s ease-in-out;
+    min-width: 150px;
     text-align: center;
 
     &:hover {
-        background-color: #474747;
+        background-color: $black-color;
         color: white;
     }
 }
