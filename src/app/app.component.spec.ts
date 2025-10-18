@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'AfaqyLeafletMap' title`, () => {
+  it(`should have the 'AfaqyInterview' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('AfaqyLeafletMap');
+    expect(app.title).toEqual('AfaqyInterview');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, AfaqyLeafletMap');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, AfaqyInterview');
   });
 });

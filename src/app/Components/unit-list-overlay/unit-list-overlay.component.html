@@ -1,0 +1,30 @@
+<div class="units-list-overlay">
+    <form class="filter-unit" [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()">
+        <input type="text" formControlName="searchedUnit"
+            placeholder="Search Units by Name or ID" />
+    </form>
+
+    <div class="units-list">
+        <div class="unit-items">
+            @for (unit of filteredMapUnits; track $index) {
+            <div class="unit-item" (click)="onSelectUnit(unit)" [class.active]="unit === selectedUnit">
+                    <div class="unit-name">{{ unit.name }}</div>
+                    <div class="unit-details">
+                        <span>ID: {{ unit.id }}</span>
+                        <span>
+                            {{ unit.lat.toFixed(4) }}, {{ unit.lng.toFixed(4) }}
+                        </span>
+                    </div>
+            </div>
+
+            }
+        </div>
+
+        @if (filteredMapUnits.length === 0) {
+        <div class="not-found">
+            Map Unit Not Found
+        </div>
+        }
+
+    </div>
+</div>
