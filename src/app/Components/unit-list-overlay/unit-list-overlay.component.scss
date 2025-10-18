@@ -1,19 +1,41 @@
+.toggle-units-overlay {
+    top: 5rem;
+    left: 0.8rem;
+    position: absolute;
+    z-index: 999;
+    padding: 0.5rem 1rem;
+    border: 1px solid #474747;
+    color: #474747;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    min-width: 100px;
+    text-align: center;
+
+    &:hover {
+        background-color: #474747;
+        color: white;
+    }
+}
 .units-list-overlay {
     position: absolute;
     z-index: 999;
     background-color: white;
     padding-top: 1rem;
+    border: 0.5px solid black;
     border-radius: 0.7rem;
-    margin-top: 5rem;
+    top: 8rem;
+    left: 0.8rem;
     max-height: 100vh;
     overflow-y: auto;
+    
 
     .filter-unit {
         padding: 0 0.5rem;
         input {
             min-width: 220px;
             padding: 0.5rem 0 0.5rem 0.3rem;
-            border-radius: 0.3rem;
+            border-radius: 0.4rem;
             outline: none;
             font-size: 1rem;
         }

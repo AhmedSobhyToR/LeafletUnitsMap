@@ -1,6 +1,5 @@
 import { Component, DestroyRef, OnInit } from '@angular/core';
 import { MapUnit } from '../../Models/map-marker';
-import { MapUnits } from '../../Helpers/map-units.helper';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MapControllerService } from '../../Services/map-controller.service';
 import { debounceTime } from 'rxjs';
@@ -17,6 +16,7 @@ export class UnitListOverlayComponent implements OnInit {
   mapUnits: MapUnit[] = [];
   filteredMapUnits: MapUnit[] = [];
   selectedUnit!: MapUnit;
+  isExpanded: boolean = false;
 
   // NgModel could be used to connect with HTML
   searchForm: FormGroup = new FormGroup({
@@ -64,6 +64,10 @@ export class UnitListOverlayComponent implements OnInit {
     if (this.filteredMapUnits.length > 0) {
     this.onSelectUnit(this.filteredMapUnits[0]);
   }
+}
+
+toggleUnitsList() {
+  this.isExpanded = !this.isExpanded;
 }
 
   get searchedUnit(){

@@ -1,4 +1,9 @@
-<div class="units-list-overlay">
+<button class="toggle-units-overlay" (click)="toggleUnitsList()">
+    {{ isExpanded ? 'Hide Units' : 'Show Units' }}
+</button>
+
+@if (isExpanded) {
+    <div class="units-list-overlay">
     <form class="filter-unit" [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()">
         <input type="text" formControlName="searchedUnit"
             placeholder="Search Units by Name or ID" />
@@ -28,3 +33,4 @@
 
     </div>
 </div>
+}
