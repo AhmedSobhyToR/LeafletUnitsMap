@@ -58,11 +58,21 @@ onMapUnitsMove() {
     for (let i = 0; i < this.mapUnits.length; i++) {
       let mapUnit = this.mapUnits[i];
       let randomTime = 2000 + Math.random() * 3000;
-      
+     
       interval(randomTime).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-        mapUnit.lat = mapUnit.lat + (Math.random() - 0.5) * 0.1;
-        mapUnit.lng = mapUnit.lng + (Math.random() - 0.5) * 0.1;
-        mapUnit.marker?.setLatLng([mapUnit.lat, mapUnit.lng]);
+        const totalMoveLat = (Math.random() - 0.5) * 0.3;
+        const totalMoveLng = (Math.random() - 0.5) * 0.3;
+        const steps = 7;
+        const smoothMoveLat = totalMoveLat / steps;
+        const smoothMoveLng = totalMoveLng / steps;
+        
+        for (let j = 0; j < steps; j++) {
+          setTimeout(() => {
+            mapUnit.lat = mapUnit.lat + smoothMoveLat;
+            mapUnit.lng = mapUnit.lng + smoothMoveLng;
+            mapUnit.marker?.setLatLng([mapUnit.lat, mapUnit.lng]);
+          },  j * 100);
+        }
       });
     }
   }
