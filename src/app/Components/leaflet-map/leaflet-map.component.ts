@@ -4,7 +4,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { MapUnit } from '../../Models/map-marker';
 import { MapUnits } from '../../Helpers/map-units.helper';
 import { MapControllerService } from '../../Services/map-controller.service';
-import { interval} from 'rxjs';
+import { interval } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -28,9 +28,9 @@ export class LeafletMapComponent implements OnInit {
     center: L.latLng(30.0444, 31.2357)
   };
 
-  constructor(private mapSer: MapControllerService, private destroyRef: DestroyRef){}
+  constructor(private mapSer: MapControllerService, private destroyRef: DestroyRef) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.mapUnits = this.mapSer.mapUnits
   }
 
@@ -42,8 +42,8 @@ export class LeafletMapComponent implements OnInit {
 
   addMarkersToMap() {
     this.mapUnits.forEach(mapUnit => {
-     const icon = mapUnit.icon
-       mapUnit.marker = L.marker([mapUnit.lat, mapUnit.lng], {icon})
+      const icon = mapUnit.icon
+      mapUnit.marker = L.marker([mapUnit.lat, mapUnit.lng], { icon })
         .bindPopup(`
           <b>${mapUnit.name}</b><br>
           <b>ID: ${mapUnit.id}</b><br>
@@ -54,31 +54,40 @@ export class LeafletMapComponent implements OnInit {
     });
   }
 
-onMapUnitsMove() {
+  onMapUnitsMove() {
     for (let i = 0; i < this.mapUnits.length; i++) {
-      let mapUnit = this.mapUnits[i];
-      let randomTime = 2000 + Math.random() * 3000;
-     
+      const mapUnit = this.mapUnits[i];
+      const randomTime = 2000 + Math.random() * 3000;
+
       interval(randomTime).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
         const totalMoveLat = (Math.random() - 0.5) * 0.3;
         const totalMoveLng = (Math.random() - 0.5) * 0.3;
         const steps = 7;
         const smoothMoveLat = totalMoveLat / steps;
         const smoothMoveLng = totalMoveLng / steps;
-        
+
         for (let j = 0; j < steps; j++) {
           setTimeout(() => {
             mapUnit.lat = mapUnit.lat + smoothMoveLat;
             mapUnit.lng = mapUnit.lng + smoothMoveLng;
             mapUnit.marker?.setLatLng([mapUnit.lat, mapUnit.lng]);
-          },  j * 100);
+            this.updateMarkerLatLng(mapUnit)
+          }, j * 100);
         }
       });
     }
   }
 
-   onSelectUnit(mapUnit: MapUnit) {
+  onSelectUnit(mapUnit: MapUnit) {
     this.mapSer.onSelectUnit(mapUnit);
   }
 
+  updateMarkerLatLng(mapUnit: MapUnit){
+     mapUnit.marker?.setPopupContent(`
+    <b>${mapUnit.name}</b><br>
+    <b>ID: ${mapUnit.id}</b><br>
+    <b>Lat: ${mapUnit.lat.toFixed(4)}</b><br>
+    <b>Lng: ${mapUnit.lng.toFixed(4)}</b><br>
+  `);
+  }
 }
