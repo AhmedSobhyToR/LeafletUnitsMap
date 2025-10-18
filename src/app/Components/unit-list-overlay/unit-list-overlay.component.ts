@@ -16,7 +16,7 @@ export class UnitListOverlayComponent implements OnInit {
   mapUnits: MapUnit[] = [];
   filteredMapUnits: MapUnit[] = [];
   selectedUnit!: MapUnit;
-  isExpanded: boolean = false;
+  isExpanded: boolean = true;
 
   // NgModel could be used to connect with HTML
   searchForm: FormGroup = new FormGroup({
