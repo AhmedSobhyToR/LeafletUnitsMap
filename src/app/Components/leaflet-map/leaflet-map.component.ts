@@ -60,30 +60,33 @@ export class LeafletMapComponent implements OnInit {
       const randomTime = 2000 + Math.random() * 3000;
 
       interval(randomTime).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-        const totalMoveLat = (Math.random() - 0.5) * 0.3;
-        const totalMoveLng = (Math.random() - 0.5) * 0.3;
-        const steps = 7;
-        const smoothMoveLat = totalMoveLat / steps;
-        const smoothMoveLng = totalMoveLng / steps;
+        const totalMoveLat = (Math.random() - 0.5) * 0.15;
+        const totalMoveLng = (Math.random() - 0.5) * 0.15;
+        const steps = 75;
+        const stephMoveLat = totalMoveLat / steps;
+        const stephMoveLng = totalMoveLng / steps;
 
-        for (let j = 0; j < steps; j++) {
-          setTimeout(() => {
-            mapUnit.lat = mapUnit.lat + smoothMoveLat;
-            mapUnit.lng = mapUnit.lng + smoothMoveLng;
-            mapUnit.marker?.setLatLng([mapUnit.lat, mapUnit.lng]);
-            this.updateMarkerLatLng(mapUnit)
-          }, j * 100);
-        }
+        this.animateMapUnits(mapUnit, stephMoveLat, stephMoveLng, steps)
       });
     }
+  }
+  animateMapUnits(mapUnit: MapUnit, stephMoveLat: number, stephMoveLng: number, steps: number, step = 0) {
+    if (step >= steps) return;
+
+    mapUnit.lat += stephMoveLat;
+    mapUnit.lng += stephMoveLng;
+    mapUnit.marker?.setLatLng([mapUnit.lat, mapUnit.lng]);
+    this.updateMarkerLatLng(mapUnit);
+
+    requestAnimationFrame(() => this.animateMapUnits(mapUnit, stephMoveLat, stephMoveLng, steps, step + 1));
   }
 
   onSelectUnit(mapUnit: MapUnit) {
     this.mapSer.onSelectUnit(mapUnit);
   }
 
-  updateMarkerLatLng(mapUnit: MapUnit){
-     mapUnit.marker?.setPopupContent(`
+  updateMarkerLatLng(mapUnit: MapUnit) {
+    mapUnit.marker?.setPopupContent(`
     <b>${mapUnit.name}</b><br>
     <b>ID: ${mapUnit.id}</b><br>
     <b>Lat: ${mapUnit.lat.toFixed(4)}</b><br>
