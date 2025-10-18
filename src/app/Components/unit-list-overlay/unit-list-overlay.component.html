@@ -1,4 +1,4 @@
-<button class="toggle-units-overlay" (click)="toggleUnitsList()">
+<button class="toggle-units-overlay" (click)="toggleUnitsList()" [class.expanded]="isExpanded">
     {{ isExpanded ? 'Hide Units List' : 'Show Units List' }}
 </button>
 

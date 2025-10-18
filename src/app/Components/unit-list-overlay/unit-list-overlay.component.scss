@@ -13,12 +13,26 @@ $black-color : #474747;
     transition: all 0.2s ease-in-out;
     min-width: 150px;
     text-align: center;
-
+    background-color: white;
+    
     &:hover {
         background-color: $black-color;
         color: white;
     }
+
+    &.expanded::after {
+        content: '';
+        position: absolute;
+        top: 2.05rem;
+        left: 0.5rem; 
+        width: 0;
+        height: 0;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-bottom: 15px solid $black-color;
+    }
 }
+
 .units-list-overlay {
     position: absolute;
     z-index: 999;
@@ -30,10 +44,12 @@ $black-color : #474747;
     left: 0.8rem;
     max-height: 100vh;
     overflow-y: auto;
+
     
 
     .filter-unit {
         padding: 0 0.5rem;
+
         input {
             min-width: 220px;
             padding: 0.5rem 0 0.5rem 0.3rem;
@@ -51,34 +67,38 @@ $black-color : #474747;
             display: flex;
             flex-direction: column;
 
-            .unit-item{
-                 padding: 0.5rem;
-                 border-bottom: 0.3px solid rgb(215, 215, 215);
-                 .unit-name{
+            .unit-item {
+                padding: 0.5rem;
+                border-bottom: 0.3px solid rgb(215, 215, 215);
+
+                .unit-name {
                     font-weight: bold;
-                 }
-                 .unit-details{
+                }
+
+                .unit-details {
                     margin-top: 0.2rem;
                     font-size: 0.85rem;
                     color: rgb(144, 144, 144);
                     display: flex;
                     flex-direction: row;
                     justify-content: space-between;
-                 }
+                }
 
             }
 
-            .unit-item:hover{
+            .unit-item:hover {
                 background-color: rgb(235, 235, 235);
-                cursor: pointer;  
+                cursor: pointer;
             }
+
             .unit-item.active {
-            background-color: rgb(235, 235, 235);
+                background-color: rgb(235, 235, 235);
             }
         }
-        .not-found{
+
+        .not-found {
             margin-top: 0.2rem;
-             padding: 0.5rem;
+            padding: 0.5rem;
             color: red;
         }
     }
